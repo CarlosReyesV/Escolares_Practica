@@ -10,7 +10,7 @@
                         <button @click='getData' class="text-center sm:mt-0 mt-1 rounded-l-lg bg-cyan-500 hover:bg-cyan-700 border-2 border-cyan-500 hover:border-cyan-700 text-white hover:text-white font-bold sm:p-3 p-2">
                             Revertir
                         </button>
-                        <input v-model="search" type="text" class="form-input border-2 border-gray-300 focus:ring-0 focus:border-cyan-500 focus:border-1 sm:p-3 p-2" placeholder="Buscar ID..." @keyup.enter="searchStudent">
+                        <input v-model="search" type="text" class="form-input border-2 border-gray-300 focus:ring-0 focus:border-cyan-500 focus:border-1 sm:p-3 p-2" onkeydown="return /[0-9]/i.test(event.key)" placeholder="Buscar ID..." @keyup.enter="searchStudent">
                     </div>
                 </div>
                 <div class="overflow-scroll surface-overlay">
