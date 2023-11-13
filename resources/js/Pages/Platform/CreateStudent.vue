@@ -53,7 +53,7 @@
                                             <InputLabel for="nombre" class="bold font-medium text-base text-gray-700">Nombre
                                             </InputLabel>
                                             <TextInput id="nombre" type="text" minlength="2" maxlength="50"
-                                                v-model="form.nombre" onkeydown="return /[a-zA-Z]/i.test(event.key)"
+                                                v-model="form.nombre" 
                                                 autocomplete="name" class="uppercase my-2 block w-full" />
                                         </div>
                                         <div class="justify-end grid content-end">
@@ -166,6 +166,8 @@ export default {
             this.form.nombre = this.form.nombre.trim();
             // One blank space by name
             this.form.nombre = this.form.nombre.replace(/\s+/g, ' ');
+            // Only letters and one blank space by name
+            this.form.nombre = this.form.nombre.replace(/[^a-zA-Z ]/g, '');
         },
         // Check if form is valid
         validateForm() {
