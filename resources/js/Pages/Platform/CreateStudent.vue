@@ -32,7 +32,8 @@
                                             <InputLabel for="matricula"
                                                 class="bold font-medium text-base text-gray-700 mx-2">Matrícula</InputLabel>
                                             <TextInput id="matricula" type="text" minlength="20" maxlength="20"
-                                                v-model="form.matricula" class="uppercase my-2 block w-full" />
+                                                v-model="form.matricula" onkeydown="return /[a-zA-Z0-9]/i.test(event.key)"
+                                                class="uppercase my-2 block w-full" />
                                         </div>
                                     </section>
                                     <section class="grid grid-cols-2">
@@ -105,7 +106,7 @@ export default {
         'form.clave': 'updateFormCompleteState',
         'form.matricula': 'updateFormCompleteState',
         'form.paterno': 'updateFormCompleteState',
-        'form.materno': 'updateFormCompleteState',
+        //'form.materno': 'updateFormCompleteState',
         'form.nombre': 'updateFormCompleteState',
     },
     methods: {
@@ -152,15 +153,15 @@ export default {
             if (!clavePattern.test(this.form.clave)) {
                 throw new Error('La clave es incorrecta, debe tener el formato CURP');
             }
-            // Validate
-            const curpApellidosNombre = this.form.clave.substring(0, 4);
+            // Validate clave
+            /* const curpApellidosNombre = this.form.clave.substring(0, 4);
             const apellidoPaterno = this.form.paterno.substring(0, 2);
             const apellidoMaterno = this.form.materno.substring(0, 1);
-            const nombre = this.form.nombre.substring(0, 1);
+            const nombre = this.form.nombre.substring(0, 1); */
 
-            if (curpApellidosNombre !== (apellidoPaterno + apellidoMaterno + nombre)) {
-                throw new Error('Las primeras letras de la CURP no coinciden con los apellidos y el nombre.');
-            }
+            //if (curpApellidosNombre !== (apellidoPaterno + /* apellidoMaterno */ nombre)) {
+            //    throw new Error('Las primeras letras de la CURP no coinciden con los apellidos y el nombre.');
+            //}
         },
         validateNames() {
             // No blank spaces
@@ -177,13 +178,13 @@ export default {
             if (!this.form.clave) throw new Error("Falta la clave");
             if (!this.form.matricula) throw new Error("Falta la matricula");
             if (!this.form.paterno) throw new Error("Falta el apellido paterno");
-            if (!this.form.materno) throw new Error("Falta el apellido materno");
+            //if (!this.form.materno) throw new Error("Falta el apellido materno");
             if (!this.form.nombre) throw new Error("Falta el nombre");
             // Validates length
             if (this.form.clave.length < 18) throw new Error("La clave debe tener al menos 18 caracteres");
             if (this.form.matricula.length < 20) throw new Error("La matricula debe tener al menos 18 caracteres");
             if (this.form.paterno.length < 2) throw new Error("El apellido paterno debe tener al menos 2 caracteres");
-            if (this.form.materno.length < 2) throw new Error("El apellido materno debe tener al menos 2 caracteres");
+            //if (this.form.materno.length < 2) throw new Error("El apellido materno debe tener al menos 2 caracteres");
             if (this.form.nombre.length < 2) throw new Error("El nombre debe tener al menos 2 caracteres");
         },
         updateFormCompleteState() {
@@ -191,7 +192,7 @@ export default {
                 this.form.clave &&
                 this.form.matricula &&
                 this.form.paterno &&
-                this.form.materno &&
+                //this.form.materno &&
                 this.form.nombre;
         },
     }

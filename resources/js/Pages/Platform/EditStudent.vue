@@ -60,7 +60,7 @@
                                             <InputLabel for="nombre" class="bold font-medium text-base text-gray-700">Nombre
                                             </InputLabel>
                                             <TextInput id="nombre" type="text" minlength="2" maxlength="50"
-                                                v-model="form.nombre" onkeydown="return /[a-zA-Z]/i.test(event.key)"
+                                                v-model="form.nombre"
                                                 autocomplete="name" class="uppercase my-2 block w-full" />
                                         </div>
                                         <div class="justify-end grid content-end">
@@ -121,7 +121,7 @@ export default {
         'form.clave': 'updateFormCompleteState',
         'form.matricula': 'updateFormCompleteState',
         'form.paterno': 'updateFormCompleteState',
-        'form.materno': 'updateFormCompleteState',
+        //'form.materno': 'updateFormCompleteState',
         'form.nombre': 'updateFormCompleteState',
     },
     // Get data on rendering
@@ -186,7 +186,8 @@ export default {
         },
         // Validate input data
         validateClave() {
-            const clavePattern = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
+            const clavePattern = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])([A-Z\d])$/;
+            //const clavePattern = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
             if (!clavePattern.test(this.form.clave)) {
                 throw new Error('La clave es incorrecta, debe tener el formato CURP');
             }
@@ -198,19 +199,21 @@ export default {
             this.form.nombre = this.form.nombre.trim();
             // One blank space by name
             this.form.nombre = this.form.nombre.replace(/\s+/g, ' ');
+            // Only letters and one blank space by name
+            this.form.nombre = this.form.nombre.replace(/[^a-zA-Z ]/g, '');
         },
         // Check if form is empty
         validateForm() {
             if (!this.form.clave) throw new Error("Falta la clave");
             if (!this.form.matricula) throw new Error("Falta la matricula");
             if (!this.form.paterno) throw new Error("Falta el apellido paterno");
-            if (!this.form.materno) throw new Error("Falta el apellido materno");
+            //if (!this.form.materno) throw new Error("Falta el apellido materno");
             if (!this.form.nombre) throw new Error("Falta el nombre");
             // Validates length
             if (this.form.clave.length < 18) throw new Error("La clave debe tener al menos 18 caracteres");
             if (this.form.matricula.length < 20) throw new Error("La matricula debe tener al menos 18 caracteres");
             if (this.form.paterno.length < 2) throw new Error("El apellido paterno debe tener al menos 2 caracteres");
-            if (this.form.materno.length < 2) throw new Error("El apellido materno debe tener al menos 2 caracteres");
+            //if (this.form.materno.length < 2) throw new Error("El apellido materno debe tener al menos 2 caracteres");
             if (this.form.nombre.length < 2) throw new Error("El nombre debe tener al menos 2 caracteres");
         },
         updateFormCompleteState() {
@@ -219,7 +222,7 @@ export default {
                 this.form.clave &&
                 this.form.matricula &&
                 this.form.paterno &&
-                this.form.materno &&
+                //this.form.materno &&
                 this.form.nombre;
         },
     }
