@@ -12,7 +12,10 @@
                         <div class="md:col-span-2 mt-5 md:mt-0">
                             <div class="shadow bg-white md:rounded-md p-4">
                                 <div class="flex justify-between text-gray-600">
-                                    <h3 class="">Después de crear el registro, podrás editarlo y eliminarlo</h3>
+                                    <div>
+                                        <h3 class="">Después de crear el registro, podrás editarlo y eliminarlo</h3>
+                                        <h3 class="font-bold underline">Ingresar las letras en mayúsculas</h3>
+                                    </div>
                                     <NavLink :href="route('dashboard')" class="text-gr">Regresar</NavLink>
                                 </div>
                                 <hr class="my-4">
