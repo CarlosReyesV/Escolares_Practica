@@ -149,6 +149,15 @@ export default {
             if (!clavePattern.test(this.form.clave)) {
                 throw new Error('La clave es incorrecta, debe tener el formato CURP');
             }
+            // Validate
+            const curpApellidosNombre = this.form.clave.substring(0, 4);
+            const apellidoPaterno = this.form.paterno.substring(0, 2);
+            const apellidoMaterno = this.form.materno.substring(0, 1);
+            const nombre = this.form.nombre.substring(0, 1);
+
+            if (curpApellidosNombre !== (apellidoPaterno + apellidoMaterno + nombre)) {
+                throw new Error('Las primeras letras de la CURP no coinciden con los apellidos y el nombre.');
+            }
         },
         validateNames() {
             // No blank spaces
