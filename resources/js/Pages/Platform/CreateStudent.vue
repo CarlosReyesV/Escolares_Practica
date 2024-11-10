@@ -19,7 +19,7 @@
                                     <NavLink :href="route('dashboard')" class="text-gr">Regresar</NavLink>
                                 </div>
                                 <hr class="my-4">
-                                <form @submit.prevent="submit">
+                                <!-- <form @submit.prevent="submit">
                                     <section class="grid grid-cols-2">
                                         <div class="mx-2">
                                             <InputLabel for="clave" class="bold font-medium text-base text-gray-700">Clave
@@ -65,7 +65,26 @@
                                                 :class="{ 'bg-cyan-500 hover:bg-cyan-700 text-white font-bold w-24 h-10 my-2 py-2 px-4': true, 'hover:bg-cyan-500 cursor-not-allowed opacity-50': !isFormComplete }">Registrar</button>
                                         </div>
                                     </section>
-                                </form>
+                                </form> -->
+                                <section class="grid grid-cols-3">
+                                    <form @submit.prevent="subemail">
+                                        <div class="mx-2">
+                                            <InputLabel for="institucional" class="bold font-medium text-base text-gray-700">Correo institucional
+                                            </InputLabel>
+                                            <TextInput id="institucional" type="email" maxlength="50"
+                                                v-model="form.institucional" class="my-2 block w-full" />
+                                        </div>
+                                        <div class="mx-2">
+                                            <InputLabel for="personal" class="bold font-medium text-base text-gray-700">Correo
+                                            </InputLabel>
+                                            <TextInput id="correo" type="email" maxlength="50"
+                                                v-model="form.correo" class="my-2 block w-full" />
+                                        </div>
+                                        <div class="justify-end grid content-end">
+                                            <button class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold w-24 h-10 my-2 py-2 px-4">Probar</button>
+                                        </div>
+                                    </form>
+                                </section>
                             </div>
                         </div>
                     </div>
@@ -110,6 +129,37 @@ export default {
         'form.nombre': 'updateFormCompleteState',
     },
     methods: {
+        // Test data
+        subemail() {
+            const formData = {
+                institucional: this.form.institucional,
+                correo: this.form.correo,
+            };
+            try {
+                this.validateCorreo();
+                alert("ningun error")
+            } catch (error) {
+                alert(error.message);
+            }
+        },
+        validateCorreo() {
+            const correoInstitucionalRegex = /^www\..+@.+\.edu\.mx$/;
+            const correoPersonalRegex = /^www\..+@.+\.com$/;
+            if (!this.form.institucional) {
+                throw new Error('El correo institucional no puede estar vacio');
+            }
+            else if (!this.form.correo) {
+                throw new Error('El correo no puede estar vacio');
+            } else{
+                if (!correoInstitucionalRegex.test(this.form.institucional)) {
+                    throw new Error('El correo institucional está incorrecto');
+                } 
+                else if (!correoPersonalRegex.test(this.form.correo)) {
+                    throw new Error('El correo está incorrecto');
+                }
+            }
+        },
+
         // Create data
         submit() {
             const formData = {
@@ -157,11 +207,11 @@ export default {
             /* const curpApellidosNombre = this.form.clave.substring(0, 4);
             const apellidoPaterno = this.form.paterno.substring(0, 2);
             const apellidoMaterno = this.form.materno.substring(0, 1);
-            const nombre = this.form.nombre.substring(0, 1); */
+            const nombre = this.form.nombre.substring(0, 1);
 
-            //if (curpApellidosNombre !== (apellidoPaterno + /* apellidoMaterno */ nombre)) {
-            //    throw new Error('Las primeras letras de la CURP no coinciden con los apellidos y el nombre.');
-            //}
+            if (curpApellidosNombre !== (apellidoPaterno + apellidoMaterno + nombre)) {
+                throw new Error('Las primeras letras de la CURP no coinciden con los apellidos y el nombre.');
+            } */
         },
         validateNames() {
             // No blank spaces
